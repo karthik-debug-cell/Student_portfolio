@@ -1,0 +1,23 @@
+{
+  "name": "karthik-m-portfolio",
+  "version": "1.0.0",
+  "description": "Karthik M – ML & Data Science Engineer | Personal Portfolio Website",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "portfolio",
+    "machine-learning",
+    "data-science",
+    "ai",
+    "nodejs"
+  ],
+  "author": "Karthik M <karthikm455405@gmail.com>",
+  "license": "MIT",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

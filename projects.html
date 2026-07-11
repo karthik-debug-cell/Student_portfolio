@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Karthik M's Projects – ML & Data Science Engineer. Explore Credit Card Fraud Detection, Tomato Disease Classification, Library Recommendation System and more." />
+  <meta name="keywords" content="Karthik M, Machine Learning Projects, Data Science Projects, AI Portfolio, Python Projects" />
+  <meta property="og:title" content="Projects | Karthik M – ML & Data Science Engineer" />
+  <meta property="og:description" content="Explore Karthik M's machine learning and data science projects." />
+  <meta property="og:type" content="website" />
+  <title>Projects | Karthik M – ML &amp; Data Science Engineer</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>" />
+</head>
+<body>
+
+  <!-- ===================== NAVIGATION ===================== -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo" aria-label="Home">
+        <span class="logo-bracket">&lt;</span>KM<span class="logo-bracket">/&gt;</span>
+      </a>
+
+      <ul class="nav-links" id="nav-links" role="menubar">
+        <li role="none"><a href="index.html" class="nav-link" role="menuitem">Home</a></li>
+        <li role="none"><a href="#projects-section" class="nav-link" role="menuitem">Projects</a></li>
+        <li role="none"><a href="#certifications" class="nav-link" role="menuitem">Certifications</a></li>
+        <li role="none"><a href="#contact" class="nav-link nav-link-accent" role="menuitem">Contact</a></li>
+      </ul>
+
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===================== PAGE HERO ===================== -->
+  <section class="page-hero" aria-label="Projects page header">
+    <div class="hero-bg-particles" aria-hidden="true">
+      <div class="particle"></div><div class="particle"></div>
+      <div class="particle"></div><div class="particle"></div>
+    </div>
+    <div class="container">
+      <div class="page-hero-content">
+        <span class="section-tag">My Work</span>
+        <h1 class="page-hero-title">Projects &amp; <span class="gradient-text">Certifications</span></h1>
+        <p class="page-hero-subtitle">
+          A curated collection of machine learning and data science projects I've built,
+          along with professional certifications that validate my expertise.
+        </p>
+        <div class="page-hero-breadcrumb" aria-label="Breadcrumb">
+          <a href="index.html">Home</a>
+          <span aria-hidden="true"> / </span>
+          <span aria-current="page">Projects</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PROJECTS SECTION ===================== -->
+  <section class="section" id="projects-section" aria-labelledby="projects-heading">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Portfolio</span>
+        <h2 class="section-title" id="projects-heading">All <span class="gradient-text">Projects</span></h2>
+        <p class="section-subtitle">Machine learning and data science solutions I've built</p>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="project-filters reveal" role="tablist" aria-label="Project filters">
+        <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true" id="filter-all">All</button>
+        <button class="filter-btn" data-filter="ml" role="tab" aria-selected="false" id="filter-ml">Machine Learning</button>
+        <button class="filter-btn" data-filter="dl" role="tab" aria-selected="false" id="filter-dl">Deep Learning</button>
+        <button class="filter-btn" data-filter="ds" role="tab" aria-selected="false" id="filter-ds">Data Science</button>
+      </div>
+
+      <div class="projects-grid" id="projects-grid">
+
+        <!-- ========= PROJECT 1 ========= -->
+        <article class="project-card glass-card reveal" data-category="ml ds" aria-labelledby="proj1-title">
+          <div class="project-card-header">
+            <div class="project-number-badge">#01</div>
+            <div class="project-header-tags">
+              <span class="project-type-tag">Machine Learning</span>
+              <span class="project-type-tag">Data Science</span>
+            </div>
+          </div>
+
+          <div class="project-preview-img-wrapper">
+            <img
+              src="images/projects/fraud_detection.png"
+              alt="Credit Card Fraud Detection Dashboard"
+              class="project-preview-img"
+              loading="lazy"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+            <div class="project-img-fallback" style="display:none;" aria-hidden="true">
+              <span>💳</span>
+              <p>Credit Card Fraud Detection</p>
+            </div>
+          </div>
+
+          <div class="project-card-body">
+            <h3 class="project-title" id="proj1-title">Credit Card Fraud Detection &amp; Analysis</h3>
+            <p class="project-desc">
+              Developed an end-to-end Machine Learning model for detecting fraudulent credit card transactions.
+              The pipeline covers data cleaning, EDA, feature engineering, handling imbalanced data,
+              model training, and comprehensive evaluation.
+            </p>
+
+            <!-- Pipeline Steps -->
+            <div class="project-pipeline">
+              <h4 class="pipeline-title">Pipeline Steps</h4>
+              <div class="pipeline-steps">
+                <span class="pipeline-step">Data Cleaning</span>
+                <span class="pipeline-arrow" aria-hidden="true">→</span>
+                <span class="pipeline-step">EDA</span>
+                <span class="pipeline-arrow" aria-hidden="true">→</span>
+                <span class="pipeline-step">Feature Engineering</span>
+                <span class="pipeline-arrow" aria-hidden="true">→</span>
+                <span class="pipeline-step">Imbalanced Data</span>
+                <span class="pipeline-arrow" aria-hidden="true">→</span>
+                <span class="pipeline-step">Model Training</span>
+                <span class="pipeline-arrow" aria-hidden="true">→</span>
+                <span class="pipeline-step">Evaluation</span>
+              </div>
+            </div>
+
+            <!-- Metrics -->
+            <div class="project-metrics">
+              <div class="proj-metric">
+                <span class="proj-metric-val gradient-text">99.2%</span>
+                <span class="proj-metric-label">Accuracy</span>
+              </div>
+              <div class="proj-metric">
+                <span class="proj-metric-val gradient-text">98.7%</span>
+                <span class="proj-metric-label">Precision</span>
+              </div>
+              <div class="proj-metric">
+                <span class="proj-metric-val gradient-text">97.3%</span>
+                <span class="proj-metric-label">Recall</span>
+              </div>
+              <div class="proj-metric">
+                <span class="proj-metric-val gradient-text">98.0%</span>
+                <span class="proj-metric-label">F1 Score</span>
+              </div>
+            </div>
+
+            <!-- Includes -->
+            <div class="project-includes">
+              <span class="include-item">✓ ROC Curve</span>
+              <span class="include-item">✓ Confusion Matrix</span>
+              <span class="include-item">✓ Feature Importance</span>
+              <span class="include-item">✓ SMOTE / Resampling</span>
+            </div>
+
+            <!-- Technologies -->
+            <div class="project-tech">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">Pandas</span>
+              <span class="tech-tag">NumPy</span>
+              <span class="tech-tag">Scikit-learn</span>
+              <span class="tech-tag">Matplotlib</span>
+              <span class="tech-tag">Seaborn</span>
+              <span class="tech-tag">Power BI</span>
+            </div>
+
+            <div class="project-actions">
+              <a href="https://github.com/karthik-debug-cell" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" id="proj1-github-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                View on GitHub
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- ========= PROJECT 2 ========= -->
+        <article class="project-card glass-card reveal" data-category="dl ml" aria-labelledby="proj2-title">
+          <div class="project-card-header">
+            <div class="project-number-badge">#02</div>
+            <div class="project-header-tags">
+              <span class="project-type-tag">Deep Learning</span>
+              <span class="project-type-tag">Computer Vision</span>
+            </div>
+          </div>
+
+          <div class="project-preview-img-wrapper">
+            <div class="project-img-fallback project-img-tomato" aria-label="Tomato Disease Classification project visual">
+              <span>🍅</span>
+              <p>Tomato Disease Classification</p>
+            </div>
+          </div>
+
+          <div class="project-card-body">
+            <h3 class="project-title" id="proj2-title">Tomato Disease Classification using Transfer Learning</h3>
+            <p class="project-desc">
+              Built a robust image classification model to identify tomato plant diseases using
+              state-of-the-art deep learning architectures. Leverages ResNet50 and Vision Transformers
+              (ViT) to classify leaf images with high accuracy, enabling early agricultural intervention.
+            </p>
+
+            <div class="project-highlights">
+              <div class="highlight-item">
+                <span class="highlight-icon" aria-hidden="true">🧠</span>
+                <div>
+                  <strong>Architecture</strong>
+                  <p>ResNet50 + Vision Transformer (ViT)</p>
+                </div>
+              </div>
+              <div class="highlight-item">
+                <span class="highlight-icon" aria-hidden="true">🔄</span>
+                <div>
+                  <strong>Technique</strong>
+                  <p>Transfer Learning with fine-tuning</p>
+                </div>
+              </div>
+              <div class="highlight-item">
+                <span class="highlight-icon" aria-hidden="true">📸</span>
+                <div>
+                  <strong>Domain</strong>
+                  <p>Agricultural Computer Vision</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="project-tech">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">PyTorch</span>
+              <span class="tech-tag">ResNet50</span>
+              <span class="tech-tag">Vision Transformer</span>
+              <span class="tech-tag">Computer Vision</span>
+              <span class="tech-tag">OpenCV</span>
+            </div>
+
+            <div class="project-actions">
+              <a href="https://github.com/karthik-debug-cell" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" id="proj2-github-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                View on GitHub
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- ========= PROJECT 3 ========= -->
+        <article class="project-card glass-card reveal" data-category="ml ds" aria-labelledby="proj3-title">
+          <div class="project-card-header">
+            <div class="project-number-badge">#03</div>
+            <div class="project-header-tags">
+              <span class="project-type-tag">Machine Learning</span>
+              <span class="project-type-tag">Recommender System</span>
+            </div>
+          </div>
+
+          <div class="project-preview-img-wrapper">
+            <div class="project-img-fallback project-img-library" aria-label="Library Recommendation System project visual">
+              <span>📚</span>
+              <p>Library Recommendation System</p>
+            </div>
+          </div>
+
+          <div class="project-card-body">
+            <h3 class="project-title" id="proj3-title">Library Recommendation System</h3>
+            <p class="project-desc">
+              Developed an intelligent book recommendation engine using collaborative filtering
+              and content-based filtering techniques. The system analyzes reading patterns
+              and book metadata to deliver personalized recommendations to library users.
+            </p>
+
+            <div class="project-highlights">
+              <div class="highlight-item">
+                <span class="highlight-icon" aria-hidden="true">🎯</span>
+                <div>
+                  <strong>Approach</strong>
+                  <p>Collaborative + Content-Based Filtering</p>
+                </div>
+              </div>
+              <div class="highlight-item">
+                <span class="highlight-icon" aria-hidden="true">📊</span>
+                <div>
+                  <strong>Algorithm</strong>
+                  <p>KNN &amp; Cosine Similarity</p>
+                </div>
+              </div>
+              <div class="highlight-item">
+                <span class="highlight-icon" aria-hidden="true">🔍</span>
+                <div>
+                  <strong>Output</strong>
+                  <p>Personalized Book Recommendations</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="project-tech">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">Machine Learning</span>
+              <span class="tech-tag">Pandas</span>
+              <span class="tech-tag">Scikit-learn</span>
+              <span class="tech-tag">NumPy</span>
+            </div>
+
+            <div class="project-actions">
+              <a href="https://github.com/karthik-debug-cell" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" id="proj3-github-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                View on GitHub
+              </a>
+            </div>
+          </div>
+        </article>
+
+      </div><!-- end projects-grid -->
+    </div>
+  </section>
+
+  <!-- ===================== CERTIFICATIONS SECTION ===================== -->
+  <section class="section section-alt" id="certifications" aria-labelledby="certifications-heading">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Credentials</span>
+        <h2 class="section-title" id="certifications-heading">
+          <span class="gradient-text">Certifications</span>
+        </h2>
+        <p class="section-subtitle">Professional certifications that validate my technical expertise</p>
+      </div>
+
+      <div class="certifications-grid">
+
+        <!-- Cert 1 -->
+        <div class="cert-card glass-card reveal" id="cert-microsoft">
+          <div class="cert-glow" aria-hidden="true"></div>
+          <div class="cert-icon-wrapper">
+            <span class="cert-icon" aria-hidden="true">🏅</span>
+          </div>
+          <div class="cert-body">
+            <span class="cert-issuer">Microsoft</span>
+            <h3 class="cert-title">Applied Skills – Create an AI Agent</h3>
+            <p class="cert-desc">
+              Validated expertise in building AI agents using Microsoft Azure AI services.
+              Covers end-to-end AI solution development, agent orchestration, and deployment best practices.
+            </p>
+            <div class="cert-meta">
+              <span class="cert-badge">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Verified
+              </span>
+              <span class="cert-level">Applied Skills</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cert 2 -->
+        <div class="cert-card glass-card reveal" id="cert-nptel">
+          <div class="cert-glow" aria-hidden="true"></div>
+          <div class="cert-icon-wrapper">
+            <span class="cert-icon" aria-hidden="true">🥇</span>
+          </div>
+          <div class="cert-body">
+            <span class="cert-issuer">NPTEL – IIT</span>
+            <h3 class="cert-title">Programming in Java</h3>
+            <p class="cert-desc">
+              Earned the <strong>Elite</strong> distinction from NPTEL (IIT-backed) for
+              demonstrating proficiency in Java programming — covering OOP, data structures,
+              algorithms, and software design principles.
+            </p>
+            <div class="cert-meta">
+              <span class="cert-badge cert-badge-gold">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                Elite
+              </span>
+              <span class="cert-level">NPTEL Certification</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cert 3 -->
+        <div class="cert-card glass-card reveal" id="cert-python">
+          <div class="cert-glow" aria-hidden="true"></div>
+          <div class="cert-icon-wrapper">
+            <span class="cert-icon" aria-hidden="true">🐍</span>
+          </div>
+          <div class="cert-body">
+            <span class="cert-issuer">NPTEL – IIT</span>
+            <h3 class="cert-title">Joy of Computing Using Python</h3>
+            <p class="cert-desc">
+              Completed the foundational Python programming course from NPTEL, covering
+              problem-solving, algorithmic thinking, data manipulation, and practical
+              Python applications in scientific computing.
+            </p>
+            <div class="cert-meta">
+              <span class="cert-badge">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Verified
+              </span>
+              <span class="cert-level">NPTEL Certification</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT SECTION ===================== -->
+  <section class="section" id="contact" aria-labelledby="contact-heading">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Get In Touch</span>
+        <h2 class="section-title" id="contact-heading">Let's <span class="gradient-text">Connect</span></h2>
+        <p class="section-subtitle">Open to internships, collaborations, and exciting opportunities</p>
+      </div>
+
+      <div class="contact-wrapper reveal">
+        <div class="contact-card glass-card">
+          <div class="contact-intro">
+            <div class="contact-avatar" aria-hidden="true">
+              <img src="images/profile.jpg" alt="Karthik M" class="contact-avatar-img" loading="lazy" />
+            </div>
+            <div>
+              <h3 class="contact-name">Karthik M</h3>
+              <p class="contact-role">Aspiring ML &amp; Data Science Engineer</p>
+              <p class="contact-availability">
+                <span class="badge-dot" aria-hidden="true"></span>
+                Available for opportunities
+              </p>
+            </div>
+          </div>
+
+          <div class="contact-grid">
+            <!-- Email -->
+            <a href="mailto:karthikm455405@gmail.com" class="contact-item" id="contact-email-btn">
+              <div class="contact-item-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              </div>
+              <div class="contact-item-info">
+                <span class="contact-item-label">Email</span>
+                <span class="contact-item-value">karthikm455405@gmail.com</span>
+              </div>
+              <svg class="contact-item-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+
+            <!-- GitHub -->
+            <a href="https://github.com/karthik-debug-cell" target="_blank" rel="noopener noreferrer" class="contact-item" id="contact-github-btn">
+              <div class="contact-item-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              </div>
+              <div class="contact-item-info">
+                <span class="contact-item-label">GitHub</span>
+                <span class="contact-item-value">@karthik-debug-cell</span>
+              </div>
+              <svg class="contact-item-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+
+            <!-- LinkedIn -->
+            <a href="https://www.linkedin.com/in/m-karthik-826271393" target="_blank" rel="noopener noreferrer" class="contact-item" id="contact-linkedin-btn">
+              <div class="contact-item-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              </div>
+              <div class="contact-item-info">
+                <span class="contact-item-label">LinkedIn</span>
+                <span class="contact-item-value">m-karthik-826271393</span>
+              </div>
+              <svg class="contact-item-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <div class="contact-resume">
+            <a href="assets/resume.pdf" download="Karthik_M_Resume.pdf" class="btn btn-primary" id="contact-download-resume-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download Resume
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== BACK TO TOP ===================== -->
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
+  </button>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-content">
+        <a href="index.html" class="nav-logo" aria-label="Home">
+          <span class="logo-bracket">&lt;</span>KM<span class="logo-bracket">/&gt;</span>
+        </a>
+        <p class="footer-text">Crafted with ❤️ by <strong>Karthik M</strong></p>
+        <div class="footer-links">
+          <a href="https://github.com/karthik-debug-cell" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a>
+          <a href="https://www.linkedin.com/in/m-karthik-826271393" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
+          <a href="index.html">Home</a>
+        </div>
+      </div>
+      <p class="footer-copy">&copy; 2025 Karthik M. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Script -->
+  <script src="js/script.js"></script>
+</body>
+</html>

@@ -27,10 +27,13 @@
 
 'use strict';
 
+require('dotenv').config();
+
 const http         = require('http');
 const fs           = require('fs');
 const path         = require('path');
 const EventEmitter = require('events');
+const { connectDB, getDB, closeDB } = require('./db');
 
 /* =============================================
    CONFIGURATION
@@ -208,6 +211,104 @@ function log(method, urlPath, statusCode, ms) {
 }
 
 /* =============================================
+   CUSTOM CALLBACK FUNCTIONS
+   ============================================= */
+
+/**
+ * Custom callback-based function to track a visitor.
+ * @param {function} callback - Function executed after processing
+ */
+function trackVisitor(callback) {
+  analytics.visitors++;
+  emitter.emit('portfolioVisited');
+  if (typeof callback === 'function') {
+    callback(analytics.visitors);
+  }
+}
+
+/**
+ * Custom callback-based function to track project views.
+ * @param {function} callback - Function executed after processing
+ */
+function viewProjects(callback) {
+  analytics.projectsViewed++;
+  emitter.emit('projectsViewed');
+  if (typeof callback === 'function') {
+    callback(analytics.projectsViewed);
+  }
+}
+
+/**
+ * Custom callback-based function to track project opening.
+ * @param {string} projectName - The name of the project opened
+ * @param {function} callback - Function executed after processing
+ */
+function openProject(projectName, callback) {
+  if (typeof projectName === 'function') {
+    callback = projectName;
+    projectName = 'Unnamed Project';
+  }
+  analytics.projectOpens++;
+  emitter.emit('projectOpened', projectName);
+  if (typeof callback === 'function') {
+    callback(projectName, analytics.projectOpens);
+  }
+}
+
+/**
+ * Custom callback-based function to track resume downloads.
+ * @param {function} callback - Function executed after processing
+ */
+function downloadResume(callback) {
+  analytics.resumeDownloads++;
+  emitter.emit('resumeDownloaded');
+  if (typeof callback === 'function') {
+    callback(analytics.resumeDownloads);
+  }
+}
+
+/**
+ * Custom callback-based function to track GitHub visits.
+ * @param {function} callback - Function executed after processing
+ */
+function githubVisit(callback) {
+  analytics.githubVisits++;
+  emitter.emit('githubVisited');
+  if (typeof callback === 'function') {
+    callback(analytics.githubVisits);
+  }
+}
+
+/**
+ * Custom callback-based function to track LinkedIn visits.
+ * @param {function} callback - Function executed after processing
+ */
+function linkedinVisit(callback) {
+  analytics.linkedinVisits++;
+  emitter.emit('linkedinVisited');
+  if (typeof callback === 'function') {
+    callback(analytics.linkedinVisits);
+  }
+}
+
+/**
+ * Custom callback-based function to track contact submissions.
+ * @param {Object} data - Contact form data
+ * @param {function} callback - Function executed after processing
+ */
+function contactSubmitted(data, callback) {
+  if (typeof data === 'function') {
+    callback = data;
+    data = { name: 'Anonymous Visitor' };
+  }
+  analytics.contactMessages++;
+  emitter.emit('contactSubmitted', data);
+  if (typeof callback === 'function') {
+    callback(data, analytics.contactMessages);
+  }
+}
+
+/* =============================================
    EVENT LISTENERS — emitter.once()
    Fires exactly ONE time when the server starts.
    ============================================= */
@@ -225,44 +326,40 @@ emitter.once('serverStarted', () => {
    ============================================= */
 
 emitter.on('portfolioVisited', () => {
-  analytics.visitors++;
   console.log('📌 portfolioVisited event occurred');
   printLiveDashboard();
 });
 
 emitter.on('projectsViewed', () => {
-  analytics.projectsViewed++;
   console.log('📌 projectsViewed event occurred');
   printLiveDashboard();
 });
 
 emitter.on('projectOpened', (projectName) => {
-  analytics.projectOpens++;
   const details = projectName ? ` (${projectName})` : '';
   console.log(`📌 projectOpened event occurred${details}`);
   printLiveDashboard();
 });
 
 emitter.on('resumeDownloaded', () => {
-  analytics.resumeDownloads++;
   console.log('📌 resumeDownloaded event occurred');
   printLiveDashboard();
 });
 
 emitter.on('githubVisited', () => {
-  analytics.githubVisits++;
   console.log('📌 githubVisited event occurred');
   printLiveDashboard();
 });
 
 emitter.on('linkedinVisited', () => {
-  analytics.linkedinVisits++;
   console.log('📌 linkedinVisited event occurred');
   printLiveDashboard();
 });
 
 emitter.on('contactSubmitted', (data) => {
-  analytics.contactMessages++;
+  console.log('📧 Contact Message Stored Successfully');
+  console.log('📧 New Contact Message Received');
+  console.log(`Current Messages : ${analytics.contactMessages}`);
   const from = data && data.name ? ` from ${data.name}` : '';
   console.log(`📌 contactSubmitted event occurred${from}`);
   printLiveDashboard();
@@ -312,7 +409,19 @@ const PAGE_EVENTS = {
 function emitPageEvent(urlPath) {
   const eventName = PAGE_EVENTS[urlPath];
   if (eventName) {
-    emitter.emit(eventName);
+    if (eventName === 'portfolioVisited') {
+      trackVisitor((count) => {
+        console.log(`[Auto-track Page Callback] trackVisitor completed. Total: ${count}`);
+      });
+    } else if (eventName === 'projectsViewed') {
+      viewProjects((count) => {
+        console.log(`[Auto-track Page Callback] viewProjects completed. Total: ${count}`);
+      });
+    } else if (eventName === 'resumeDownloaded') {
+      downloadResume((count) => {
+        console.log(`[Auto-track Page Callback] downloadResume completed. Total: ${count}`);
+      });
+    }
   }
 }
 
@@ -449,17 +558,40 @@ const server = http.createServer((req, res) => {
   const urlPath   = decodeURIComponent(parsedUrl.pathname || '/');
 
   /* ---- Analytics Event Endpoints ---- */
-  // When an event endpoint is hit, emit() the matching event
+  // When an event endpoint is hit, invoke the matching custom callback function
   if (EVENT_ROUTES[urlPath]) {
     const eventName = EVENT_ROUTES[urlPath];
 
-    // Pass extra data for events that use it
-    if (eventName === 'projectOpened') {
-      emitter.emit(eventName, parsedUrl.searchParams.get('name') || null);
+    if (eventName === 'portfolioVisited') {
+      trackVisitor((count) => {
+        console.log(`[HTTP Callback] trackVisitor completed. Total: ${count}`);
+      });
+    } else if (eventName === 'projectsViewed') {
+      viewProjects((count) => {
+        console.log(`[HTTP Callback] viewProjects completed. Total: ${count}`);
+      });
+    } else if (eventName === 'projectOpened') {
+      const name = parsedUrl.searchParams.get('name') || 'Unnamed Project';
+      openProject(name, (projectName, count) => {
+        console.log(`[HTTP Callback] openProject completed for "${projectName}". Total: ${count}`);
+      });
+    } else if (eventName === 'resumeDownloaded') {
+      downloadResume((count) => {
+        console.log(`[HTTP Callback] downloadResume completed. Total: ${count}`);
+      });
+    } else if (eventName === 'githubVisited') {
+      githubVisit((count) => {
+        console.log(`[HTTP Callback] githubVisit completed. Total: ${count}`);
+      });
+    } else if (eventName === 'linkedinVisited') {
+      linkedinVisit((count) => {
+        console.log(`[HTTP Callback] linkedinVisit completed. Total: ${count}`);
+      });
     } else if (eventName === 'contactSubmitted') {
-      emitter.emit(eventName, Object.fromEntries(parsedUrl.searchParams));
-    } else {
-      emitter.emit(eventName);
+      const data = Object.fromEntries(parsedUrl.searchParams);
+      contactSubmitted(data, (submittedData, count) => {
+        console.log(`[HTTP Callback] contactSubmitted completed for "${submittedData.name || 'Anonymous'}". Total: ${count}`);
+      });
     }
 
     sendJSON(res, 200, { success: true, event: eventName, analytics });
@@ -471,6 +603,97 @@ const server = http.createServer((req, res) => {
   if (urlPath === '/analytics') {
     sendJSON(res, 200, { analytics });
     log(req.method, urlPath, 200, Date.now() - startTime);
+    return;
+  }
+
+  /* ---- Contact Form POST Endpoint ---- */
+  if (urlPath === '/contact' && req.method === 'POST') {
+    let bodyChunks = [];
+    req.on('data', (chunk) => {
+      bodyChunks.push(chunk);
+    });
+
+    req.on('end', async () => {
+      try {
+        const bodyStr = Buffer.concat(bodyChunks).toString('utf8');
+        let data = {};
+        try {
+          data = JSON.parse(bodyStr);
+        } catch (jsonErr) {
+          sendJSON(res, 400, { success: false, message: 'Failed to send message.' });
+          log(req.method, urlPath, 400, Date.now() - startTime);
+          return;
+        }
+
+        const { name, email, subject, message } = data;
+
+        // Validation: Reject empty submissions, return proper failure responses
+        if (
+          !name || typeof name !== 'string' || !name.trim() ||
+          !email || typeof email !== 'string' || !email.trim() ||
+          !subject || typeof subject !== 'string' || !subject.trim() ||
+          !message || typeof message !== 'string' || !message.trim()
+        ) {
+          sendJSON(res, 400, { success: false, message: 'Failed to send message.' });
+          log(req.method, urlPath, 400, Date.now() - startTime);
+          return;
+        }
+
+        // Email format validation regex
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email.trim())) {
+          sendJSON(res, 400, { success: false, message: 'Failed to send message.' });
+          log(req.method, urlPath, 400, Date.now() - startTime);
+          return;
+        }
+
+        // IP Address
+        const ipAddress = req.headers['x-forwarded-for'] || req.socket.remoteAddress || '';
+
+        // Formatted Date and Time
+        const currentDate = new Date();
+        const submittedDate = currentDate.toISOString().split('T')[0];
+        const submittedTime = currentDate.toTimeString().split(' ')[0];
+
+        const contactDocument = {
+          name: name.trim(),
+          email: email.trim(),
+          subject: subject.trim(),
+          message: message.trim(),
+          submittedDate,
+          submittedTime,
+          ipAddress,
+          createdAt: currentDate
+        };
+
+        // Insert into MongoDB
+        const database = getDB();
+        const collection = database.collection('contacts');
+        await collection.insertOne(contactDocument);
+
+        // Update Analytics & Emit Event using the custom callback function
+        contactSubmitted(contactDocument, (submittedData, count) => {
+          // Print DATABASE LOG exactly as formatted in requirements
+          console.log('==================================');
+          console.log('MongoDB Connected');
+          console.log('New Contact Saved');
+          console.log(`Name : ${submittedData.name}`);
+          console.log(`Email : ${submittedData.email}`);
+          console.log(`Date : ${submittedData.submittedDate}`);
+          console.log(`Time : ${submittedData.submittedTime}`);
+          console.log(`Total Messages : ${count}`);
+          console.log('==================================');
+        });
+
+        sendJSON(res, 200, { success: true, message: 'Message sent successfully.' });
+        log(req.method, urlPath, 200, Date.now() - startTime);
+
+      } catch (dbErr) {
+        console.error('❌ Error saving contact to database:', dbErr.message);
+        sendJSON(res, 500, { success: false, message: 'Failed to send message.' });
+        log(req.method, urlPath, 500, Date.now() - startTime);
+      }
+    });
     return;
   }
 
@@ -594,36 +817,48 @@ const server = http.createServer((req, res) => {
    START SERVER
    ============================================= */
 
-server.listen(PORT, HOST, () => {
-  console.log('\n\x1b[1m\x1b[35m  ╔══════════════════════════════════════╗');
-  console.log('  ║   Karthik M – Portfolio Server      ║');
-  console.log('  ╚══════════════════════════════════════╝\x1b[0m');
-  console.log(`\n  \x1b[36m🌐  Server running at:\x1b[0m  \x1b[1mhttp://${HOST}:${PORT}\x1b[0m`);
-  console.log(`  \x1b[36m📁  Serving from:\x1b[0m       ${ROOT_DIR}`);
-  console.log('\n  \x1b[90mPress Ctrl+C to stop the server.\x1b[0m');
+async function startServer() {
+  try {
+    // Connect to MongoDB
+    await connectDB();
 
-  // ── emitter.emit() ── triggers the .once() listener above
-  emitter.emit('serverStarted');
+    server.listen(PORT, HOST, () => {
+      console.log('\n\x1b[1m\x1b[35m  ╔══════════════════════════════════════╗');
+      console.log('  ║   Karthik M – Portfolio Server      ║');
+      console.log('  ╚══════════════════════════════════════╝\x1b[0m');
+      console.log(`\n  \x1b[36m🌐  Server running at:\x1b[0m  \x1b[1mhttp://${HOST}:${PORT}\x1b[0m`);
+      console.log(`  \x1b[36m📁  Serving from:\x1b[0m       ${ROOT_DIR}`);
+      console.log('\n  \x1b[90mPress Ctrl+C to stop the server.\x1b[0m');
 
-  /* ================================================
-     JAVASCRIPT TIMERS DEMONSTRATION
-     ================================================ */
+      // ── emitter.emit() ── triggers the .once() listener above
+      emitter.emit('serverStarted');
 
-  // 1. setTimeout()
-  //    Three seconds after the server starts,
-  //    display "Analytics Engine Ready".
-  analyticsReadyTimeout = setTimeout(() => {
-    console.log('✅ Analytics Engine Ready\n');
-    analyticsReadyTimeout = null; // Already fired
-  }, 3000);
+      /* ================================================
+         JAVASCRIPT TIMERS DEMONSTRATION
+         ================================================ */
 
-  // 3. setInterval()
-  //    Every 20 seconds, automatically display
-  //    the current analytics dashboard.
-  dashboardInterval = setInterval(() => {
-    printIntervalDashboard();
-  }, 20000);
-});
+      // 1. setTimeout()
+      //    Three seconds after the server starts,
+      //    display "Analytics Engine Ready".
+      analyticsReadyTimeout = setTimeout(() => {
+        console.log('✅ Analytics Engine Ready\n');
+        analyticsReadyTimeout = null; // Already fired
+      }, 3000);
+
+      // 3. setInterval()
+      //    Every 20 seconds, automatically display
+      //    the current analytics dashboard.
+      dashboardInterval = setInterval(() => {
+        printIntervalDashboard();
+      }, 20000);
+    });
+  } catch (error) {
+    console.error('❌ Failed to start the server due to database connection error:', error.message);
+    process.exit(1);
+  }
+}
+
+startServer();
 
 /* =============================================
    GRACEFUL SHUTDOWN
@@ -655,7 +890,12 @@ function gracefulShutdown() {
   emitter.emit('serverStopped');
 
   // Close HTTP server and exit
-  server.close(() => {
+  server.close(async () => {
+    try {
+      await closeDB();
+    } catch (dbErr) {
+      console.error('Error closing DB on shutdown:', dbErr.message);
+    }
     process.exit(0);
   });
 }
